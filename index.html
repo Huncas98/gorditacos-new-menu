@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GORDITACOS — Menü</title>
+<style>
+  :root {
+    --cream: #F7F9F2;
+    --ink: #0F1A0F;
+    --muted: #5A6B52;
+    --accent: #C0392B;
+    --accent-light: #FAE5E3;
+    --divider: #D4E0CC;
+    --card: #FFFFFF;
+    --badge-bg: #FAE5E3;
+    --badge-text: #8B1A10;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Georgia', serif;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+  }
+
+  /* ── HERO ── */
+  header {
+    background: #0F2D0F;
+    color: var(--cream);
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    position: relative;
+  }
+  .restaurant-name {
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    letter-spacing: 0.04em;
+    font-weight: normal;
+    line-height: 1.1;
+  }
+  .restaurant-tagline {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  .header-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 1rem auto 0;
+  }
+  .restaurant-story {
+    margin-top: 1.5rem;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: #7AAB72;
+    font-family: 'Helvetica Neue', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── STICKY NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--cream);
+    border-bottom: 1px solid var(--divider);
+    padding: 0 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav ul { display: inline-flex; gap: 0; list-style: none; }
+  nav li a {
+    display: inline-block;
+    padding: 0.85rem 1rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  nav li a:hover, nav li a.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── MAIN ── */
+  main { max-width: 680px; margin: 0 auto; padding: 0 1rem; }
+
+  /* ── SECTION ── */
+  .menu-section { padding-top: 2.5rem; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: normal;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  /* ── MENU ITEM ── */
+  .menu-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .item-info { flex: 1; }
+  .item-name {
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .item-desc {
+    margin-top: 0.2rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+  }
+  .item-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 0.4rem;
+  }
+  .badge {
+    font-size: 0.7rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .badge-new { background: #D6F0D6; color: #1A5C1A; }
+  .badge-spicy { background: #FAE0DE; color: #8B1A10; }
+  .badge-veg { background: #D6EDCC; color: #2A5C10; }
+  .badge-popular { background: var(--badge-bg); color: var(--badge-text); }
+  .item-price {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 500;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+  .item-tiers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-top: 0.5rem;
+  }
+  .item-tiers span {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .item-tiers span b {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ── QR BÖLÜMÜ ── */
+  .qr-section {
+    margin: 3rem auto 0;
+    max-width: 680px;
+    padding: 0 1rem;
+  }
+  .qr-card {
+    background: var(--card);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+  }
+  .qr-card h2 {
+    font-size: 1rem;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  #qrcode { display: inline-block; margin-bottom: 1rem; }
+  #qrcode img, #qrcode canvas { border-radius: 6px; }
+  .qr-url {
+    font-size: 0.78rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: var(--muted);
+    word-break: break-all;
+    margin-bottom: 0.5rem;
+  }
+  .qr-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'Helvetica Neue', sans-serif;
+    opacity: 0.7;
+  }
+
+  /* ── SETUP GUIDE ── */
+  .setup-guide {
+    background: #0F2D0F;
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin: 2rem 1rem 0;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .setup-guide h2 {
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .setup-steps {
+    list-style: none;
+    counter-reset: steps;
+  }
+  .setup-steps li {
+    counter-increment: steps;
+    display: flex;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #C8BFB2;
+    align-items: flex-start;
+  }
+  .setup-steps li::before {
+    content: counter(steps);
+    background: var(--accent);
+    color: white;
+    font-size: 0.7rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .setup-steps li b { color: var(--cream); font-weight: 500; }
+  .setup-steps a { color: #7AAB72; }
+
+  footer {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    padding: 0 1rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="restaurant-name">GORDITACOS</h1>
+  <p class="restaurant-tagline">Lezzetiyle Aç Bırakan, Boyutlarıyla Doyuran.</p>
+  <div class="header-rule"></div>
+  <p class="restaurant-story">Türkiye'de tacolar doyurmaz dediler. Biz katılmadık.<br><br>Kaliteli malzemeler, özgün tarifler ve gerçekten doyuran porsiyonlar.<br>Çünkü taco atıştırmalık değil, öğün olmalıdır.</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#taco" class="active">Taco</a></li>
+    <li><a href="#wings">Wings</a></li>
+    <li><a href="#salatalar">Salatalar</a></li>
+    <li><a href="#soslar">Soslar</a></li>
+    <li><a href="#tatlilar">Tatlılar</a></li>
+    <li><a href="#icecekler">İçecekler</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- TACO -->
+  <section class="menu-section" id="taco">
+    <div class="section-header">
+      <h2 class="section-title">Taco</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Birria Taco <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif; font-weight:normal;">— Orijinal Meksika keçi etli tacosu</span></div>
+        <div class="item-desc">Özel baharatlarla uzun saatler pişirilmiş keçi eti, cheddar peyniri ve salata. Eşlikçi sos, salsa ve sour cream ile servis edilir.</div>
+        <div class="item-badges"><span class="badge badge-popular">Popüler</span></div>
+        <div class="item-tiers">
+          <span>2'li: <b>379 TL</b></span>
+          <span>3'lü: <b>539 TL</b></span>
+          <span>Ekstra taco: <b>+160 TL</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Klasik Kıymalı Taco</div>
+        <div class="item-desc">Dana kıyma, pico de gallo, marul ve kırmızı soğan. Eşlikçi sos, guacamole ve acı sos eşliğinde servis edilir.</div>
+        <div class="item-tiers">
+          <span>2'li: <b>299 TL</b></span>
+          <span>3'lü: <b>419 TL</b></span>
+          <span>Ekstra taco: <b>+120 TL</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Smash Taco</div>
+        <div class="item-desc">Ezilmiş burger köftesi, cheddar peyniri, turşu ve özel sos. Acı sos eşliğinde servis edilir.</div>
+        <div class="item-tiers">
+          <span>2'li: <b>319 TL</b></span>
+          <span>3'lü: <b>449 TL</b></span>
+          <span>Ekstra taco: <b>+130 TL</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Tavuklu Klasik Taco</div>
+        <div class="item-desc">Marine edilmiş tavuk göğsü, taze salata ve hardallı sos. Acı sos ve sour cream eşliğinde servis edilir.</div>
+        <div class="item-tiers">
+          <span>2'li: <b>279 TL</b></span>
+          <span>3'lü: <b>389 TL</b></span>
+          <span>Ekstra taco: <b>+110 TL</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Tempura Karides Taco</div>
+        <div class="item-desc">Çıtır tempura karides, coleslaw salatası ve mor soğan turşusu. Salsa sos ve sweet chili sos eşliğinde servis edilir.</div>
+        <div class="item-badges"><span class="badge badge-new">Yeni</span></div>
+        <div class="item-tiers">
+          <span>2'li: <b>389 TL</b></span>
+          <span>3'lü: <b>549 TL</b></span>
+          <span>Ekstra taco: <b>+160 TL</b></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WINGS -->
+  <section class="menu-section" id="wings">
+    <div class="section-header">
+      <h2 class="section-title">Wings</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Kanat</div>
+        <div class="item-desc">Özel baharatlarla marine edilmiş çıtır kanatlar, gordi sos eşliğinde servis edilir.</div>
+        <div class="item-tiers">
+          <span>6 Adet: <b>249 TL</b></span>
+          <span>12 Adet: <b>459 TL</b></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALATALAR -->
+  <section class="menu-section" id="salatalar">
+    <div class="section-header">
+      <h2 class="section-title">Salatalar</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Gordi Salata</div>
+        <div class="item-desc">Akdeniz yeşilliği, meksika fasulyesi, mısır, salatalık, soğan turşusu, avokado ve gordi salata sosu ile beraber servis edilir.</div>
+      </div>
+      <div class="item-price">229 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Elote Supreme</div>
+        <div class="item-desc">Mısır, cheddar sos, jalapeño ve özel baharat karışımı.</div>
+      </div>
+      <div class="item-price">219 TL</div>
+    </div>
+  </section>
+
+  <!-- SOSLAR -->
+  <section class="menu-section" id="soslar">
+    <div class="section-header">
+      <h2 class="section-title">Soslar</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Chipotle Sos</div></div>
+      <div class="item-price">45 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Avokado Sos</div></div>
+      <div class="item-price">45 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Acı Sos</div>
+      </div>
+      <div class="item-price">45 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Cheddar Sos</div></div>
+      <div class="item-price">45 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Salsa Sos</div></div>
+      <div class="item-price">45 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Ballı Hardal Sos</div></div>
+      <div class="item-price">45 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Gordi Sos <span style="font-size:1rem; margin-left:4px;">🌶️🌶️🌶️</span></div>
+      </div>
+      <div class="item-price">45 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Sweet Chili Sos <span style="font-size:1rem; margin-left:4px; filter: hue-rotate(50deg) saturate(1.5) brightness(1.1);">🌶️🌶️</span></div></div>
+      <div class="item-price">45 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Sriracha Sos <span style="font-size:1rem; margin-left:4px;">🌶️🌶️</span></div></div>
+      <div class="item-price">45 TL</div>
+    </div>
+  </section>
+
+  <!-- TATLILAR -->
+  <section class="menu-section" id="tatlilar">
+    <div class="section-header">
+      <h2 class="section-title">Tatlılar</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <div class="item-name">Churros <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif;">— 3 adet</span></div>
+        <div class="item-desc">Latinlerin vazgeçilmez tatlısı, lütfen yerli tulumba tatlısı demeyiniz.</div>
+        <div class="item-desc" style="margin-top:0.35rem;">Sütlü çikolata, beyaz çikolata, karamel ve ahududu sosu ile servis edilir. <b style="color:var(--ink); font-weight:500;">2 adet sos seçebilirsiniz.</b></div>
+        <div class="item-tiers">
+          <span>Ekstra sos: <b>45 TL</b></span>
+        </div>
+      </div>
+      <div class="item-price">159 TL</div>
+    </div>
+  </section>
+
+  <!-- İÇECEKLER -->
+  <section class="menu-section" id="icecekler">
+    <div class="section-header">
+      <h2 class="section-title">İçecekler</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Coca-Cola <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif;">330 ml</span></div></div>
+      <div class="item-price">85 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Coca-Cola Şişe <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif;">300 ml</span></div></div>
+      <div class="item-price">80 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Coca-Cola Zero <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif;">330 ml</span></div></div>
+      <div class="item-price">85 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Coca-Cola Zero Şişe <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif;">300 ml</span></div></div>
+      <div class="item-price">80 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Fanta <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif;">330 ml</span></div></div>
+      <div class="item-price">85 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Sprite <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif;">330 ml</span></div></div>
+      <div class="item-price">85 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Sprite Cool Lime <span style="font-size:0.78rem; color:var(--muted); font-family:'Helvetica Neue',sans-serif;">330 ml</span></div></div>
+      <div class="item-price">85 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Su</div></div>
+      <div class="item-price">35 TL</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info"><div class="item-name">Soda</div></div>
+      <div class="item-price">45 TL</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 GORDITACOS &nbsp;·&nbsp; Fiyatlara KDV dahildir &nbsp;·&nbsp; Alerjen bilgisi için personelimize danışınız.</p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.menu-section');
+  const navLinks = document.querySelectorAll('nav a');
+  const nav = document.querySelector('nav');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        if (active) {
+          active.classList.add('active');
+          active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        const navHeight = nav.offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
